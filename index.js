@@ -33,7 +33,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.all("*", (req, res) => {
   res.status(404).json({
-    message: "Route not found",
+    message: "mini bank api",
     status: "failed",
   });
 });

@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwtManager = require("../../../manager/jwtManager");
 const emailManager = require("../../../manager/emailManager");
 
+
 const register = async (req, res) => {
   const usersModel = mongoose.model("users");
   const { name, email, password, confirm_password, balance } = req.body;
@@ -16,6 +17,7 @@ const register = async (req, res) => {
   const duplicateEmail = await usersModel.findOne({ email: email });
 
   if (duplicateEmail) throw "email already exists";
+  const emailCode = Math.floor(100000 + Math.random() * 900000);
 
   const hashPassword = await bcrypt.hash(password , 10)
  const createUser = await usersModel.create({
@@ -23,12 +25,20 @@ const register = async (req, res) => {
     email: email,
     password: hashPassword,
     balance: balance,
+    emailCode:emailCode,
   });
   const accessToken = jwtManager(createUser)
 
 // Looking to send emails in production? Check out our Email API/SMTP product!
+ await emailManager(
+    createUser.email,
+    "Verify Your Email",
+    `Your code is ${emailCode}`,
+    "Mini Bank"
+    
+  );
 
-await emailManager(createUser.email, "Welcome to Mini Bank you are successfully registered to our system", `<h1>Welcome to Mini Bank</h1><p>You are successfully registered to our system</p>` , "Welcome to Mini Bank")
+// await emailManager(createUser.email, "Welcome to Mini Bank you are successfully registered to our system", `<h1>Welcome to Mini Bank</h1><p>You are successfully registered to our system</p>` , "Welcome to Mini Bank")
 
   res.status(201).json({
     message: "Register Successfully",

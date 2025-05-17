@@ -6,6 +6,7 @@ const auth = require("../../middleware/auth");
 const forgotPassword = require("./controllers/forgotPassword");
 const resetPassword = require("./controllers/resetPassword");
 const edit = require("./controllers/edit");
+const verifyEmail = require("./controllers/verifyEmail");
 
 const usersRouter = express.Router();
 
@@ -16,6 +17,7 @@ usersRouter.post("/forgot", forgotPassword);
 usersRouter.post("/reset", resetPassword);
 usersRouter.post("/register", register);
 usersRouter.post("/login", login);
+usersRouter.post("/verify" , verifyEmail)
 
 // Protected routes
 usersRouter.use(auth);

@@ -22,7 +22,8 @@ const usersSchema = new mongoose.Schema(
     },
     rest_code:{
       type:Number,
-    }
+    },
+    emailCode: { type: Number },
   },
   {
     timestamps: true,
