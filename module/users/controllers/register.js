@@ -5,13 +5,12 @@ const emailManager = require("../../../manager/emailManager");
 
 const register = async (req, res) => {
   const usersModel = mongoose.model("users");
-  const { first_Name, last_Name, email, password, confirm_password, balance } = req.body;
+  const { first_Name, last_Name, email, password, balance } = req.body;
 
   if (!first_Name) throw "Fist Name is required";
   if (!email) throw "Email is required";
   if (!password) throw "Password is required";
   if (password.length < 8) throw "Password must be atleast 8 character length";
-  if (password !== confirm_password) throw "Password not match";
   if (!balance) throw "Balance is required";
   const duplicateEmail = await usersModel.findOne({ email: email });
 
