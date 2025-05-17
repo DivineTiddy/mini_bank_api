@@ -2,9 +2,14 @@ const mongoose = require("mongoose");
 
 const usersSchema = new mongoose.Schema(
   {
-    name: {
+    first_Name: {
       type: String,
-      required: [true, "Name is required"],
+      required: [true, " first name is required"],
+    },
+    last_Name: {
+      type: String,
+      required: [true, "last name is required"],
+      unique: true,
     },
     email: {
       type: String,
@@ -20,8 +25,8 @@ const usersSchema = new mongoose.Schema(
       required: [true, "Balance is required"],
       default: 0,
     },
-    rest_code:{
-      type:Number,
+    rest_code: {
+      type: Number,
     },
     emailCode: { type: Number },
   },
