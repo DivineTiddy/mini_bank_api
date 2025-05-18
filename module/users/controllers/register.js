@@ -42,7 +42,12 @@ const register = async (req, res) => {
     message: "Register Successfully",
     status: true,
     accessToken: accessToken,
-    data:createUser
+    data: {
+      first_Name: createUser.first_Name,
+      last_Name: createUser.last_Name,
+      email: createUser.email,
+      balance: createUser.balance,
+    },
   });
 };
 
