@@ -11,10 +11,10 @@ const register = async (req, res) => {
   if (!email) throw "Email is required";
   if (!password) throw "Password is required";
   if (password.length < 8) throw "Password must be atleast 8 character length";
-  if (!balance) throw "Balance is required";
+  // if (!balance) throw "Balance is required";
   const duplicateEmail = await usersModel.findOne({ email: email });
 
-  if (duplicateEmail) throw "email already exists";
+  if (duplicateEmail) throw "Email already exists";
   const emailCode = Math.floor(100000 + Math.random() * 900000);
 
   const hashPassword = await bcrypt.hash(password, 10);

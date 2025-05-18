@@ -4,12 +4,12 @@ const verifyEmail = async (req, res) => {
   const usersModel = mongoose.model("users");
   const { emailCode , email } = req.body;
 
-  if (!emailCode) throw "emailCode is required";
+  if (!emailCode) throw "Verify code is required";
   if(!email) throw "Email is required";
 
  const user = await usersModel.findOne({ email, emailCode });
 
-  if (!user) throw "Email or code is incorrect";
+  if (!user) throw "Verify code is incorrect";
 
   // Update verification status
   await usersModel.findOneAndUpdate(
