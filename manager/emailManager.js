@@ -6,7 +6,7 @@ const emailManager = async (to, text, html, subject) => {
     service: "gmail",
     auth: {
       user: "divinetidy@gmail.com",
-      pass: "hxcn gvzl chxy yxfw",
+      pass: "judz bakb adrn ncdi",
     },
   });
   await transport.sendMail({

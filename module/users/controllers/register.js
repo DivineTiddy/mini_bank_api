@@ -30,10 +30,10 @@ const register = async (req, res) => {
 
   // Looking to send emails in production? Check out our Email API/SMTP product!
   await emailManager(
-    createUser.email,
-    "Verify Your Email",
-    `Your code is ${emailCode}`,
-    "Mini Bank"
+     createUser.email,
+  `Your code is ${emailCode}`, // plain text
+  `<h1>Email Verification</h1><p>Your code is: <strong>${emailCode}</strong></p>`, // HTML
+  "Verify Your Email - Mini Bank"
   );
 
   // await emailManager(createUser.email, "Welcome to Mini Bank you are successfully registered to our system", `<h1>Welcome to Mini Bank</h1><p>You are successfully registered to our system</p>` , "Welcome to Mini Bank")
