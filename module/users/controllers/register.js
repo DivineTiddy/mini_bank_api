@@ -42,6 +42,7 @@ const register = async (req, res) => {
     message: "Register Successfully",
     status: true,
     accessToken: accessToken,
+    data:createUser
   });
 };
 
