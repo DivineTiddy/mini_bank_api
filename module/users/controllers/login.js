@@ -12,11 +12,11 @@ const login = async (req, res) => {
   const userApprove = await usersModel.findOne({ email });
   if (!userApprove) throw "Email do not match";
 
-  // Check if email is verified
-  if (!userApprove.emailVerified) throw "Please verify your email before logging in";
 
   const comparePassword = await bcrypt.compare(password, userApprove.password);
   if (!comparePassword) throw "Password does not match";
+    // Check if email is verified
+  if (!userApprove.emailVerified) throw "Please verify your email before logging in";
 
   const accessToken = jwtManager(userApprove);
 

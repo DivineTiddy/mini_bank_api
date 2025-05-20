@@ -29,6 +29,10 @@ const usersSchema = new mongoose.Schema(
       type: Number,
     },
     emailCode: { type: Number },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
