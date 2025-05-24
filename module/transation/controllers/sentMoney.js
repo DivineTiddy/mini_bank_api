@@ -12,6 +12,7 @@ const sentMoney = async (req, res) => {
   if (!remarks) throw "Remarks is required";
   if (!email) throw "email is required";
   if (!userAccount) throw "Account not found";
+  if (email === adminAccount.email ) throw "Invalid email";
 
   if (remarks.length < 2) throw "Remarks must be at least 5 characters";
   if (!validator.isNumeric(amount.toString()))
