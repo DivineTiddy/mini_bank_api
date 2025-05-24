@@ -7,7 +7,6 @@ const sentMoney = async (req, res) => {
   const { amount, remarks, email } = req.body;
   const userAccount = await usersModel.findOne({ email: email });
   const adminAccount = await usersModel.findOne({ _id: req.user._id });
-  console.log(userAccount, adminAccount);
   if (!amount) throw "Amount is required";
   if (!remarks) throw "Remarks is required";
   if (!email) throw "email is required";
@@ -18,6 +17,7 @@ const sentMoney = async (req, res) => {
   if (!validator.isNumeric(amount.toString()))
     throw "Amount must be a valid number";
   if (amount < 1) throw "Amount must be least then negative";
+    if (amount > adminAccount.balance) throw "insuficient balance";
   transationModel.create({
     user_id: req.user._id,
     amount: amount,
@@ -36,7 +36,6 @@ const sentMoney = async (req, res) => {
     email: adminAccount.email,
     from: adminAccount.first_Name,
   });
-  if (amount > adminAccount.balance) throw "insuficient balance";
 
   await usersModel.updateOne(
     {
