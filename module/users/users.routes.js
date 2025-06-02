@@ -7,21 +7,21 @@ const forgotPassword = require("./controllers/forgotPassword");
 const resetPassword = require("./controllers/resetPassword");
 const edit = require("./controllers/edit");
 const verifyEmail = require("./controllers/verifyEmail");
+const user = require("./controllers/user");
 
 const usersRouter = express.Router();
-
-
 
 // Auth routes
 usersRouter.post("/forgot", forgotPassword);
 usersRouter.post("/reset", resetPassword);
 usersRouter.post("/register", register);
 usersRouter.post("/login", login);
-usersRouter.post("/verify" , verifyEmail)
+usersRouter.post("/verify", verifyEmail);
 
 // Protected routes
 usersRouter.use(auth);
 usersRouter.patch("/", edit);
 usersRouter.get("/dashboard", userDashBoard);
+usersRouter.get("/user", user);
 
 module.exports = usersRouter;
