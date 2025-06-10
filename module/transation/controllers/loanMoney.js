@@ -8,10 +8,10 @@ const loanMoney = async (req, res) => {
    const userAccount = await usersModel.findOne({ _id: req.user._id});
 
   if (!amount) throw "Amount is required";
-  if (amount > 2000) throw "You can only loan a maximum of 2000";
+  if (amount > 2000) throw "You can only loan a maximum of #2,000";
   if (amount < 1) throw "Amount must be at least 1";
   if (!remarks) throw "Remarks is required";
-  if (remarks.length < 3) throw "Remarks must be at least 5 characters";
+  if (remarks.length < 3) throw "Remarks must be at least 3 characters";
   if (!validator.isNumeric(amount.toString()))
     throw "Amount must be a valid number";
   if (amount < 1) throw "Amount must be least then negative";

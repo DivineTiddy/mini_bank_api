@@ -10,11 +10,11 @@ const login = async (req, res) => {
   if (!password) throw "Password is required";
 
   const userApprove = await usersModel.findOne({ email });
-  if (!userApprove) throw "Email do not match";
+  if (!userApprove) throw "Invalid email";
 
 
   const comparePassword = await bcrypt.compare(password, userApprove.password);
-  if (!comparePassword) throw "Password does not match";
+  if (!comparePassword) throw "Invalid password";
     // Check if email is verified
   if (!userApprove.emailVerified) throw "Please verify your email before logging in";
 
