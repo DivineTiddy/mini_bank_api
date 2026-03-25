@@ -16,7 +16,7 @@ const login = async (req, res) => {
   const comparePassword = await bcrypt.compare(password, userApprove.password);
   if (!comparePassword) throw "Invalid password";
     // Check if email is verified
-  if (!userApprove.emailVerified) throw "Please verify your email before logging in";
+  // if (!userApprove.emailVerified) throw "Please verify your email before logging in";
 
   const accessToken = jwtManager(userApprove);
 
