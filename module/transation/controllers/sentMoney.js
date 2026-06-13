@@ -41,7 +41,7 @@ const sentMoney = async (req, res) => {
 
   const sentSoFar = totalSentToday.length ? totalSentToday[0].total : 0;
 
-  const DAILY_LIMIT = 15000;
+  const DAILY_LIMIT = 30000;
 
   if (sentSoFar + Number(amount) > DAILY_LIMIT) {
     throw `Network error`;
