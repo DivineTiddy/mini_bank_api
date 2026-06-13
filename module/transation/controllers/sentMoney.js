@@ -13,11 +13,41 @@ const sentMoney = async (req, res) => {
   if (!userAccount) throw "Account not found";
   if (email === adminAccount.email ) throw "Invalid email";
 
-  if (remarks.length < 2) throw "Remarks must be at least 5 characters";
+  // if (remarks.length < 2) throw "Remarks must be at least 5 characters";
   if (!validator.isNumeric(amount.toString()))
     throw "Amount must be a valid number";
   if (amount < 1) throw "Amount must be least then negative";
     if (amount > adminAccount.balance) throw "insuficient balance";
+
+     // ✅ DAILY LIMIT LOGIC (15,000 per day)
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const totalSentToday = await transationModel.aggregate([
+    {
+      $match: {
+        user_id: adminAccount._id,
+        transation_type: "sent",
+        createdAt: { $gte: startOfDay },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        total: { $sum: "$amount" },
+      },
+    },
+  ]);
+
+  const sentSoFar = totalSentToday.length ? totalSentToday[0].total : 0;
+
+  const DAILY_LIMIT = 15000;
+
+  if (sentSoFar + Number(amount) > DAILY_LIMIT) {
+    throw `Network error`;
+  }
+
+
   transationModel.create({
     user_id: req.user._id,
     amount: amount,
