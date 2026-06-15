@@ -22,7 +22,6 @@ const transationSchema = new mongoose.Schema(
     },
     remarks: {
       type: String,
-      required: true,
     },
     to: {
       type: String,
