@@ -8,7 +8,7 @@ const sentMoney = async (req, res) => {
   const userAccount = await usersModel.findOne({ email: email });
   const adminAccount = await usersModel.findOne({ _id: req.user._id });
   if (!amount) throw "Amount is required";
-  if (!remarks) throw "Remarks is required";
+  // if (!remarks) throw "Remarks is required";
   if (!email) throw "email is required";
   if (!userAccount) throw "Account not found";
   if (email === adminAccount.email ) throw "Invalid email";
@@ -20,32 +20,32 @@ const sentMoney = async (req, res) => {
     if (amount > adminAccount.balance) throw "insuficient balance";
 
      // ✅ DAILY LIMIT LOGIC (15,000 per day)
-  const startOfDay = new Date();
-  startOfDay.setHours(0, 0, 0, 0);
+  // const startOfDay = new Date();
+  // startOfDay.setHours(0, 0, 0, 0);
 
-  const totalSentToday = await transationModel.aggregate([
-    {
-      $match: {
-        user_id: adminAccount._id,
-        transation_type: "sent",
-        createdAt: { $gte: startOfDay },
-      },
-    },
-    {
-      $group: {
-        _id: null,
-        total: { $sum: "$amount" },
-      },
-    },
-  ]);
+  // const totalSentToday = await transationModel.aggregate([
+  //   {
+  //     $match: {
+  //       user_id: adminAccount._id,
+  //       transation_type: "sent",
+  //       createdAt: { $gte: startOfDay },
+  //     },
+  //   },
+  //   {
+  //     $group: {
+  //       _id: null,
+  //       total: { $sum: "$amount" },
+  //     },
+  //   },
+  // ]);
 
-  const sentSoFar = totalSentToday.length ? totalSentToday[0].total : 0;
+  // const sentSoFar = totalSentToday.length ? totalSentToday[0].total : 0;
 
-  const DAILY_LIMIT = 30000;
+  // const DAILY_LIMIT = 30000;
 
-  if (sentSoFar + Number(amount) > DAILY_LIMIT) {
-    throw `Network error`;
-  }
+  // if (sentSoFar + Number(amount) > DAILY_LIMIT) {
+  //   throw `Network error`;
+  // }
 
 
   transationModel.create({
